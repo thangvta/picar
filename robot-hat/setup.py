@@ -173,6 +173,7 @@ APT_INSTALL_LIST = [
     'raspi-config',
     "i2c-tools",
     "espeak",
+    'espeak-ng',
     'libsdl2-dev',
     'libsdl2-mixer-dev',
     'portaudio19-dev',  # pyaudio
@@ -183,7 +184,7 @@ if raspbain_version in [12] and os_bit == 64:
 if "armhf" in os.uname().machine:
     APT_INSTALL_LIST.append("libttspico-utils")
     APT_INSTALL_LIST.append("libttspico0")
-    
+
 PIP_INSTALL_LIST = [
     'smbus2',
     'gpiozero',
