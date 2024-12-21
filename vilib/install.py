@@ -200,6 +200,7 @@ PIP_INSTALL_LIST = [
 #     warn("mediapipe is only supported on 64bit system.")
 if os_bit == 64:
     PIP_INSTALL_LIST.append("mediapipe")
+    is_mediapipe_supported = True
 
 if raspbain_version > 11:
     PIP_INSTALL_LIST.append("numpy")
