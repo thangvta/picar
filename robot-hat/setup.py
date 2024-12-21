@@ -146,12 +146,9 @@ def do(msg="", cmd=""):
 
 
 def check_raspbain_version():
-    _, result = run_command("cat /etc/debian_version | awk -F. '{print $1}'")
-    try:
-        return int(result.strip())
-    except ValueError:
-        # If not a number, assume it's not Raspbian and return a default value
-        return 0
+    _, result = run_command("cat /etc/debian_version|awk -F. '{print $1}'")
+    return int(result.strip())
+
 
 def check_os_bit():
     '''
@@ -173,17 +170,12 @@ APT_INSTALL_LIST = [
     'raspi-config',
     "i2c-tools",
     "espeak",
-    'espeak-ng',
     'libsdl2-dev',
     'libsdl2-mixer-dev',
     'portaudio19-dev',  # pyaudio
 ]
 if raspbain_version in [12] and os_bit == 64:
     APT_INSTALL_LIST.append("libttspico-utils")  # tts -> pico2wave
-# Add ARM-specific dependencies if the system architecture is ARM
-if "armhf" in os.uname().machine:
-    APT_INSTALL_LIST.append("libttspico-utils")
-    APT_INSTALL_LIST.append("libttspico0")
 
 PIP_INSTALL_LIST = [
     'smbus2',

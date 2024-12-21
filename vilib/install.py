@@ -100,12 +100,8 @@ def check_rpi_model():
         return None
 
 def check_raspbain_version():
-    _, result = run_command("cat /etc/debian_version | awk -F. '{print $1}'")
-    try:
-        return int(result.strip())
-    except ValueError:
-        # If not a number, assume it's not Raspbian and return a default value
-        return 0
+    _, result = run_command("cat /etc/debian_version|awk -F. '{print $1}'")
+    return int(result.strip())
 
 def check_python_version():
     import sys
@@ -139,11 +135,10 @@ print("")
 
 # check system
 # =================================================================
-# if raspbain_version <= 10:
-#     warn('System not be supported.Requires system in bullseye(11) or newer.')
-#     print('Please use newer system or use "legacy" branch.')
-#     sys.exit(1)
-print("Skipping Raspbian version check (running on Ubuntu)")
+if raspbain_version <= 10:
+    warn('System not be supported.Requires system in bullseye(11) or newer.')
+    print('Please use newer system or use "legacy" branch.')
+    sys.exit(1)
 
 # Dependencies list installed with apt
 # =================================================================
@@ -191,21 +186,18 @@ PIP_INSTALL_LIST = [
 ]
 
 # check whether mediapipe is supported
-# is_mediapipe_supported = False
-# if os_bit == 64 and raspbain_version >= 11:
-#     is_mediapipe_supported = True
-#     PIP_INSTALL_LIST.append("mediapipe")
-# else:
-#     is_mediapipe_supported = False
-#     warn("mediapipe is only supported on 64bit system.")
-if os_bit == 64:
-    PIP_INSTALL_LIST.append("mediapipe")
+is_mediapipe_supported = False
+if os_bit == 64 and raspbain_version >= 11:
     is_mediapipe_supported = True
+    PIP_INSTALL_LIST.append("mediapipe")
+else:
+    is_mediapipe_supported = False
+    warn("mediapipe is only supported on 64bit system.")
 
 if raspbain_version > 11:
     PIP_INSTALL_LIST.append("numpy")
 else:
-    PIP_INSTALL_LIST.append("numpy")
+    PIP_INSTALL_LIST.append("numpy==1.26.4")
 
 # main function
 # =================================================================

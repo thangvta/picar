@@ -47,7 +47,7 @@ def main():
             sleep(0.05)
 
         elif key == "t":
-            words = "Hello Dino"
+            words = "Hello"
             print(f'{words}')
             tts.say(words)
 
