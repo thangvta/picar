@@ -179,7 +179,11 @@ APT_INSTALL_LIST = [
 ]
 if raspbain_version in [12] and os_bit == 64:
     APT_INSTALL_LIST.append("libttspico-utils")  # tts -> pico2wave
-
+# Add ARM-specific dependencies if the system architecture is ARM
+if "armhf" in os.uname().machine:
+    APT_INSTALL_LIST.append("libttspico-utils")
+    APT_INSTALL_LIST.append("libttspico0")
+    
 PIP_INSTALL_LIST = [
     'smbus2',
     'gpiozero',
