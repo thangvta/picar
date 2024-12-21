@@ -100,8 +100,12 @@ def check_rpi_model():
         return None
 
 def check_raspbain_version():
-    _, result = run_command("cat /etc/debian_version|awk -F. '{print $1}'")
-    return int(result.strip())
+    _, result = run_command("cat /etc/debian_version | awk -F. '{print $1}'")
+    try:
+        return int(result.strip())
+    except ValueError:
+        # If not a number, assume it's not Raspbian and return a default value
+        return 0
 
 def check_python_version():
     import sys
