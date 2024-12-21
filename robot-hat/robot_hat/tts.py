@@ -64,14 +64,14 @@ class TTS(_Basic_class):
         if not self._check_executable(self.ESPEAK):
             raise Exception(f"{self.ESPEAK} is not available on the system.")
 
-        cmd = (
-            f'{self.ESPEAK} -a{self._amp} -s{self._speed} -g{self._gap} -p{self._pitch} '
-            f'-v {self._lang} "{words}" --stdout | aplay 2>/dev/null &'
-        )
+        # cmd = (
+        #     f'{self.ESPEAK} -a{self._amp} -s{self._speed} -g{self._gap} -p{self._pitch} '
+        #     f'-v {self._lang} "{words}" --stdout | aplay 2>/dev/null &'
+        # )
+        cmd = f'espeak -a{self._amp} -s{self._speed} -g{self._gap} -p{self._pitch} "{words}" --stdout | aplay 2>/dev/null & '
         status, result = run_command(cmd)
         if len(result) != 0:
-            raise Exception(f'TTS-espeak:
-\t{result}')
+            raise (f'TTS-espeak:\n\t{result}')
         self._debug(f'command: {cmd}')
 
     def lang(self, *value):
