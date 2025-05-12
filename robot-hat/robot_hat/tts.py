@@ -11,10 +11,8 @@ class TTS(_Basic_class):
     SUPPORTED_LANGUAUE = [
         'en-US',
         'en-GB',
-        'de-DE',
-        'es-ES',
-        'fr-FR',
-        'it-IT',
+        'vi-VN'
+
     ]
     """Supported TTS language for pico2wave"""
 
